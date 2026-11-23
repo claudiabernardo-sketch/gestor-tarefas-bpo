@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestor de Tarefas do BPO</title>
+<meta name="description" content="Gestor de tarefas simples para o BPO Financeiro: listas por cliente, tarefas que se repetem e calendário do mês.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1B33'/%3E%3Cpath d='M18 33l9 9 19-20' stroke='%23F7C948' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="barra-celular">
+    <button type="button" class="btn-icone" id="abrir-menu" aria-label="Abrir menu">☰</button>
+    <span class="marca-mini">Gestor de Tarefas</span>
+  </header>
+
+  <aside class="menu" id="menu" aria-label="Menu">
+    <div class="marca"><span class="logo">✓</span><div><b>Gestor de Tarefas</b><small>do BPO Financeiro</small></div></div>
+    <nav id="visoes"></nav>
+    <div class="secao-titulo">Clientes e listas</div>
+    <nav id="listas"></nav>
+    <button type="button" class="btn-nova-lista" id="nova-lista">+ Nova lista</button>
+    <div class="menu-rodape">
+      <button type="button" class="link" id="rotina-modelo">Criar rotina modelo de BPO</button>
+      <button type="button" class="link" id="salvar-backup">Salvar backup</button>
+      <button type="button" class="link" id="restaurar-backup">Restaurar backup</button>
+      <button type="button" class="link" id="exportar-excel">Exportar para Excel</button>
+      <input type="file" id="arquivo-backup" accept=".json,application/json" hidden>
+      <p class="info-backup" id="info-backup"></p>
+    </div>
+  </aside>
+  <div class="veu" id="veu-menu"></div>
+
+  <main class="principal">
+    <div class="aviso-salvar" id="aviso-salvar" hidden>Este navegador não está guardando os dados (modo anônimo ou armazenamento bloqueado). Use "Salvar backup" antes de fechar.</div>
+    <header class="topo">
+      <div>
+        <h1 id="titulo-visao">Hoje</h1>
+        <p id="subtitulo-visao"></p>
+      </div>
+      <div class="acoes-lista" id="acoes-lista" hidden>
+        <button type="button" class="btn-leve" id="renomear-lista">Renomear</button>
+        <button type="button" class="btn-leve perigo" id="excluir-lista">Excluir lista</button>
+      </div>
+    </header>
+
+    <form class="adicionar" id="form-adicionar" autocomplete="off">
+      <span class="mais">+</span>
+      <input type="text" id="nova-titulo" placeholder="Adicionar uma tarefa" maxlength="200" aria-label="Título da nova tarefa">
+      <input type="date" id="nova-data" aria-label="Data da nova tarefa">
+      <select id="nova-lista-sel" aria-label="Cliente ou lista da nova tarefa"></select>
+      <button type="submit" class="btn-principal">Adicionar</button>
+    </form>
+
+    <section id="conteudo"></section>
+  </main>
+
+  <aside class="detalhe" id="detalhe" aria-label="Detalhes da tarefa" hidden>
+    <div class="detalhe-topo">
+      <button type="button" class="circulo" id="det-concluir" aria-label="Concluir"></button>
+      <input type="text" id="det-titulo" maxlength="200" aria-label="Título">
+      <button type="button" class="estrela" id="det-importante" aria-label="Importante">☆</button>
+    </div>
+    <label class="campo"><span>Data</span><input type="date" id="det-data"></label>
+    <label class="campo"><span>Repetir</span><select id="det-repeticao"></select></label>
+    <p class="dica" id="det-dica-repeticao"></p>
+    <label class="campo"><span>Cliente ou lista</span><select id="det-lista"></select></label>
+    <label class="campo"><span>Notas</span><textarea id="det-notas" rows="5" maxlength="4000" placeholder="Detalhes, links, o que falta pedir ao cliente..."></textarea></label>
+    <p class="det-info" id="det-info"></p>
+    <div class="detalhe-rodape">
+      <button type="button" class="btn-leve" id="det-fechar">Fechar</button>
+      <button type="button" class="btn-leve perigo" id="det-excluir">Excluir tarefa</button>
+    </div>
+  </aside>
+  <div class="veu" id="veu-detalhe"></div>
+
+  <div class="aviso" id="aviso" role="status" aria-live="polite" hidden><span id="aviso-texto"></span><button type="button" id="aviso-desfazer">Desfazer</button></div>
+</div>
+<script src="logica.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
